@@ -13,6 +13,7 @@ marshmallow-sqlalchemy = "*"
 flask-session = "*"
 psycopg2-binary = "*"
 psycopg2 = "*"
+bcrypt = "*"
 
 [dev-packages]
 

@@ -3,13 +3,16 @@ from flask_restful import Api
 
 from app.common.error_handling import ObjectNotFound, AppErrorBaseClass
 from app.db import db
-from app.films.api_v1_0.resources import films_v1_0_bp
+#from app.films.api_v1_0.resources import films_v1_0_bp
+from app.resources.user_resource import user_api
 from .ext import ma, migrate
 
 
 def create_app(settings_module):
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://rafael:9906@localhost/xkcd'
+    app.config["SECRET_KEY"] = '123447a47f563e90fe2db0f56b1b17be62378e31b7cfd3adc776c59ca4c75e2fc512c15f69bb38307d11d5d17a41a7936789'
+
     #app.config.[from_object](settings_module)
 
     # Inicializa las extensiones
@@ -24,7 +27,7 @@ def create_app(settings_module):
     app.url_map.strict_slashes = False
 
     # Registra los blueprints
-    app.register_blueprint(films_v1_0_bp)
+    app.register_blueprint(user_api)
 
     # Registra manejadores de errores personalizados
     register_error_handlers(app)
