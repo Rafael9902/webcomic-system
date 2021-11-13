@@ -29,7 +29,7 @@ class BaseModelMixin:
 
     @classmethod
     def get_by_email(cls, email: str):
-        return cls.query.filter_by(email=email).all()
+        return cls.query.filter_by(email=email).first()
 
     @classmethod
     def simple_filter(cls, **kwargs):

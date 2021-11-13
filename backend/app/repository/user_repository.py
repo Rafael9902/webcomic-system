@@ -1,25 +1,27 @@
-import json
-
-from flask import jsonify
-from sqlalchemy.exc import IntegrityError
-
 from ..models.user import User
+import app.common.utils as utils
 
 
 class UserRepository:
 
     def get(self) -> dict:
-        user: dict = {}
+        response: dict = {}
         user = User.get_by_id(self)
 
-        user = {
-            'id' : user.id,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email
-        }
+        if not user:
+            response = {
+                "status": 400,
+                "message": "User with that id doesn't exists"
+            }
+        else:
+            response = {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email
+            }
 
-        return user
+        return response
 
     def create(self):
         response: dict = {}
@@ -34,11 +36,14 @@ class UserRepository:
                     "message": "User with that email already exists"
                 }
             else:
+                password: str = str(utils.encrypt(self['password']))
+                password = password[1:].replace("'", "")
+
                 user = User(
                     self['first_name'],
                     self['last_name'],
                     self['email'],
-                    self['password']
+                    password
                 )
 
                 user.save()
@@ -88,6 +93,31 @@ class UserRepository:
             response = {
                 "status": 400,
                 "message": "Failed to update the user"
+            }
+
+        return response
+
+    def login(self):
+        response: dict = {}
+
+        try:
+            user = User.get_by_email(self['email'])
+
+            if not user or not utils.matchPassword(self['password'], user.password):
+                response = {
+                    "status": 401,
+                    "message": "Please check your credentials"
+                }
+            else:
+                response = {
+                    "status": 200,
+                    "message": "User logged in successfully"
+                }
+        except Exception as e:
+            print(e)
+            response = {
+                "status": 500,
+                "message": "Server error"
             }
 
         return response
