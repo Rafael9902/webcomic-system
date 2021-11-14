@@ -1,10 +1,11 @@
 from flask import Flask, jsonify
 from flask_restful import Api
+from flask_restful.utils import cors
 
 from app.common.error_handling import ObjectNotFound, AppErrorBaseClass
 from app.db import db
-#from app.films.api_v1_0.resources import films_v1_0_bp
 from app.resources.user_resource import user_api
+from flask_cors import CORS
 from .ext import ma, migrate
 
 
@@ -28,6 +29,8 @@ def create_app(settings_module):
 
     # Registra los blueprints
     app.register_blueprint(user_api)
+
+    CORS(app)
 
     # Registra manejadores de errores personalizados
     register_error_handlers(app)
