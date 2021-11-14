@@ -1,4 +1,5 @@
 from flask import request, Blueprint, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Api, Resource
 from ..repository.user_repository import UserRepository
 from ..models.user import User
@@ -24,7 +25,9 @@ class UserResource(Resource):
 
 
 class UserResourceList(Resource):
+    @jwt_required
     def get(self, id: int):
+        #current_user_id = get_jwt_identity()
         user = UserRepository.get(id)
         return user
 

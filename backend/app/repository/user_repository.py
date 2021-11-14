@@ -1,5 +1,6 @@
 from ..models.user import User
 import app.common.utils as utils
+from flask_jwt_extended import create_access_token
 
 
 class UserRepository:
@@ -109,9 +110,13 @@ class UserRepository:
                     "message": "Please check your credentials"
                 }
             else:
+                access_token: str = create_access_token(identity=user.id)
+
                 response = {
                     "status": 200,
-                    "message": "User logged in successfully"
+                    "message": "User logged in successfully",
+                    "token": access_token,
+                    "user": user.first_name
                 }
         except Exception as e:
             print(e)
