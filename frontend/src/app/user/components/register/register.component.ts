@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   constructor(private _authService: AuthService, private _router: Router, private _userService: UserService) {}
 
   ngOnInit(): void {
-    if(!this._authService.isLoggedIn())
+    if(this._authService.isLoggedIn())
       this._router.navigate(["/home"]);
   }
 
