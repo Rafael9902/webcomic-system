@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { AuthService} from "../../../auth/auth.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
+import * as utils  from "../../../shared/utils";
 
 
 @Component({
@@ -33,15 +34,12 @@ export class RegisterComponent implements OnInit {
     this._userService.create(this.registerForm.value).subscribe(
       response =>{
         if(response.status == 200){
-          localStorage.setItem("register", "true");
+          utils.saveLocalValue("register", "true");
           this._router.navigate(['/login']);
         }
         else{
           this.registerMessage = response.message;
         }
-
-
-
       },
       error =>{
         console.error(error);

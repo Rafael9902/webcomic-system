@@ -13,6 +13,7 @@ import * as utils  from "../../../shared/utils";
 export class LoginComponent implements OnInit {
 
   register: boolean = false;
+  loginMessage: string = "";
 
   credentialsForm = new FormGroup({
     email: new FormControl(''),
@@ -29,24 +30,26 @@ export class LoginComponent implements OnInit {
   }
 
   validateRegisterUser(){
-    if(localStorage.getItem("register")){
+    if(utils.getLocalValue("register")){
       this.register = true;
-      localStorage.clear();
+      utils.clearLocalStorage();
     }
-
   }
 
   onSubmit(){
-    this._authService.login(this.credentialsForm.value).subscribe({
-      next(response){
+    this._authService.login(this.credentialsForm.value).subscribe(
+      response =>{
         console.log(response);
         if(response.status == 200)
           utils.saveSessionToken(response.token);
+        else
+          this.loginMessage = response.message;
+          this.register = false;
       },
-      error(msg){
-        console.error(msg);
+      error =>{
+        console.error(error);
       }
-    });
+    )
 
     this.ngOnInit();
   }
