@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from "@angular/forms";
+import { AuthService} from "../../../auth/auth.service";
+import { Router } from "@angular/router";
+import { UserService } from "../../services/user.service";
+
 
 @Component({
   selector: 'app-register',
@@ -7,9 +12,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  registerMessage: string = "";
+
+  registerForm = new FormGroup({
+    first_name: new FormControl(''),
+    last_name: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl('')
+  });
+
+
+  constructor(private _authService: AuthService, private _router: Router, private _userService: UserService) {}
 
   ngOnInit(): void {
+    if(!this._authService.isLoggedIn())
+      this._router.navigate(["/home"]);
+  }
+
+  onSubmit(){
+    this._userService.create(this.registerForm.value).subscribe(
+      response =>{
+        if(response.status == 200){
+          localStorage.setItem("register", "true");
+          this._router.navigate(['/login']);
+        }
+        else{
+          this.registerMessage = response.message;
+        }
+
+
+
+      },
+      error =>{
+        console.error(error);
+      }
+    )
+
+
   }
 
 }

@@ -6,7 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { UserRoutingModule} from "./user.routes";
 import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
-
+import {RouterModule} from '@angular/router';
+import {UserService} from "./services/user.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
-  ]
+    HttpClientModule,
+    RouterModule
+  ],
+  providers: [UserService]
 })
 export class UserModule { }

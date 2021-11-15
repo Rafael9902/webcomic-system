@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import { AuthService} from "../../../auth/auth.service";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as utils  from "../../../shared/utils";
+
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import * as utils  from "../../../shared/utils";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  register: boolean = false;
 
   credentialsForm = new FormGroup({
     email: new FormControl(''),
@@ -21,6 +24,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if(!this._authService.isLoggedIn())
       this._router.navigate(["/home"]);
+
+    this.validateRegisterUser()
+  }
+
+  validateRegisterUser(){
+    if(localStorage.getItem("register")){
+      this.register = true;
+      localStorage.clear();
+    }
+
   }
 
   onSubmit(){
