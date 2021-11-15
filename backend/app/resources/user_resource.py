@@ -9,8 +9,11 @@ api = Api(user_api)
 
 
 class UserResource(Resource):
+    @jwt_required
     def get(self):
-        user = UserRepository.getAll(self)
+        current_user_id = get_jwt_identity()
+        print(current_user_id)
+        user = UserRepository.get(current_user_id)
         return user, 200
 
     def put(self):
@@ -25,7 +28,6 @@ class UserResource(Resource):
 
 
 class UserResourceList(Resource):
-    @jwt_required
     def get(self, id: int):
         #current_user_id = get_jwt_identity()
         user = UserRepository.get(id)

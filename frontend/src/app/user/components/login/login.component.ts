@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import { AuthService} from "../../../auth/auth.service";
 import { Router } from '@angular/router';
 import * as utils  from "../../../shared/utils";
+import {timeout} from "rxjs";
 
 
 @Component({
@@ -50,8 +51,7 @@ export class LoginComponent implements OnInit {
         console.error(error);
       }
     )
-
-    this.ngOnInit();
+    setTimeout(()=> this.ngOnInit(), 500)
   }
 
 }

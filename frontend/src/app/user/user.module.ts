@@ -8,12 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from '@angular/router';
 import {UserService} from "./services/user.service";
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   exports: [
     HomeComponent,

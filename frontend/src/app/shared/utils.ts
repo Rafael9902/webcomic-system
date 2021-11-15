@@ -6,6 +6,10 @@ export function saveSessionToken(token: string): void{
   sessionStorage.setItem("token", token);
 }
 
+export function clearSessionToken(): void {
+  sessionStorage.removeItem("token");
+}
+
 export function saveLocalValue(key: string, value: string){
   localStorage.setItem(key, value);
 }

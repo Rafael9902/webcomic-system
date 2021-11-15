@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from flask import Flask, jsonify
 from flask_restful import Api
 from app.common.error_handling import ObjectNotFound, AppErrorBaseClass
@@ -12,6 +14,7 @@ def create_app(settings_module):
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://rafael:9906@localhost/xkcd'
     app.config["JWT_SECRET_KEY"] = "super-secret"
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
 
     #app.config.[from_object](settings_module)
 
