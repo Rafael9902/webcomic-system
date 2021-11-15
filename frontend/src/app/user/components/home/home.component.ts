@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as utils  from "../../../shared/utils";
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService} from "../../../auth/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -11,17 +12,11 @@ export class HomeComponent implements OnInit {
 
   private user: any;
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _authService: AuthService) { }
 
   ngOnInit(): void {
-    this.validateSession()
-  }
-
-  validateSession(): void{
-    this.user = utils.getUserSession();
-
-    if(!this.user)
-      this._router.navigate(["/login"])
+    if(!this._authService.isLoggedIn())
+      this._router.navigate(["/login"]);
   }
 
 }

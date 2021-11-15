@@ -115,8 +115,7 @@ class UserRepository:
                 response = {
                     "status": 200,
                     "message": "User logged in successfully",
-                    "token": access_token,
-                    "user": user.first_name
+                    "token": access_token
                 }
         except Exception as e:
             print(e)
