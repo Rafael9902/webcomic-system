@@ -5,11 +5,13 @@ import { CreateComponent } from './components/create/create.component';
 import { ComicRoutingModule } from "./comic.routes";
 import { ReactiveFormsModule } from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import { DetailsComponent } from './components/details/details.component';
 
 
 @NgModule({
   declarations: [
-    CreateComponent
+    CreateComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

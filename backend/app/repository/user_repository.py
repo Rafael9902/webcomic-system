@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from ..models.user import User
 import app.common.utils as utils
 from flask_jwt_extended import create_access_token
@@ -29,7 +31,6 @@ class UserRepository:
     def create(self):
         response: dict = {}
         message: str = ""
-        print(self)
 
         try:
             if "id" not in self:
@@ -43,15 +44,16 @@ class UserRepository:
                 else:
                     user = UserUtilities.createUser(self)
                     message = "The user was created successfully"
-            elif len(self) == 5:
+            else:
                 user = UserUtilities.updateUser(self)
-                message = "The user was updated successfully"
+                message = message = "The user was updated successfully"
 
             response = {
                 "status": 200,
                 "message": message,
                 "id": user.id
             }
+
         except Exception as e:
             print(e)
             response = {
@@ -81,10 +83,16 @@ class UserRepository:
                     "token": access_token
                 }
         except Exception as e:
-            print(e)
             response = {
                 "status": 500,
-                "message": "Server error"
+                "message": "Server error",
+                "error": e
             }
 
         return response
+
+    def logout(self):
+        return {
+            "status": "200",
+            "message": "User logged out successfully"
+        }

@@ -16,6 +16,10 @@ export class ComicService{
     return this._http.get(this.url + "comic?tag=" + tag);
   }
 
+  getById(id: number): Observable<any>{
+    return this._http.get(this.url + "comic/" + id);
+  }
+
   create(comic: any, token: string): Observable<any>{
     let json = JSON.stringify(comic);
 

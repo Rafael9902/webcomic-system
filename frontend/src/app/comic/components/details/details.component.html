@@ -7,17 +7,17 @@
 
             <div class="mb-md-5 mt-md-4 pb-5">
 
-              <div *ngIf="createMessage" [className]="createMessage.includes('successfully')
+              <div *ngIf="comicMessage" [className]="comicMessage.includes('successfully')
               ? 'alert alert-success' : 'alert alert-danger'" role="alert">
-                {{ createMessage }}
+                {{ comicMessage }}
               </div>
 
               <h2 class="fw-bold mb-2 text-uppercase">New Comic</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
               <div class="form-outline form-white mb-4">
-                <input type="number" id="month" class="form-control form-control-lg"
-                       placeholder="Month (Example: 6)" formControlName="month" maxlength="2" required/>
+                <input type="text" id="month" class="form-control form-control-lg"
+                       placeholder="Month (Example: 6)" formControlName="month" required/>
               </div>
 
               <div class="form-outline form-white mb-4">
@@ -61,13 +61,13 @@
               </div>
 
               <div class="form-outline form-white mb-4">
-                <input type="number" id="day" class="form-control form-control-lg"
-                       placeholder="Day" formControlName="day" maxlength="2" required/>
+                <input type="text" id="day" class="form-control form-control-lg"
+                       placeholder="Day" formControlName="day" required/>
               </div>
 
               <div class="form-outline form-white mb-4">
-                <input type="number" id="year" class="form-control form-control-lg"
-                       placeholder="Year" formControlName="year" maxlength="4" required/>
+                <input type="text" id="year" class="form-control form-control-lg"
+                       placeholder="Year" formControlName="year" required/>
               </div>
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit"

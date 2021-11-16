@@ -32,5 +32,9 @@ class BaseModelMixin:
         return cls.query.filter_by(email=email).first()
 
     @classmethod
+    def get_by_num(cls, num: str):
+        return cls.query.filter_by(num=num).first()
+
+    @classmethod
     def filter_by(cls, query: str):
         return cls.query.filter(query)

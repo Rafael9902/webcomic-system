@@ -21,8 +21,23 @@ export class HomeComponent implements OnInit {
     if(!this._authService.isLoggedIn())
       this._router.navigate(["/login"]);
 
+    if(utils.getLocalValue("login") == "true"){
+      utils.clearLocalStorage();
+      window.location.reload();
+    }
+
+
+
     this.getParams();
     this.getComics()
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this._router.url;
+
+    this._router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
+      this._router.navigate(['home']);
+    });
   }
 
   getParams(){
@@ -41,6 +56,10 @@ export class HomeComponent implements OnInit {
        console.error(error);
      }
    )
+  }
+
+  getComic(comicId: number){
+    this._router.navigate(['comic/'+ comicId])
   }
 
 }

@@ -13,11 +13,7 @@ from flask_jwt_extended import JWTManager
 
 def create_app(settings_module):
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://rafael:9906@localhost/xkcd'
-    app.config["JWT_SECRET_KEY"] = "super-secret"
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
-
-    #app.config.[from_object](settings_module)
+    config(app)
 
     db.init_app(app)
     ma.init_app(app)
@@ -34,6 +30,12 @@ def create_app(settings_module):
     jwt = JWTManager(app)
 
     return app
+
+
+def config(app):
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://rafael:9906@localhost/xkcd'
+    app.config["JWT_SECRET_KEY"] = "XKCD-secret"
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
 
 
 def register_error_handlers(app):

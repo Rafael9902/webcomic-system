@@ -41,6 +41,7 @@ export class CreateComponent implements OnInit {
       response =>{
         console.log(this.comicForm.value);
         this.createMessage = response.message
+        window.scrollTo(0, 0);
       },
       error =>{
         console.error(error);

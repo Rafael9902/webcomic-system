@@ -8,8 +8,10 @@ api = Api(comic_api)
 
 
 class ComicResource(Resource):
+    @jwt_required
     def post(self):
         request_json = request.get_json(silent=True)
+        print(request_json)
         comic = ComicRepository.create(request_json)
 
         return comic
@@ -22,8 +24,13 @@ class ComicResource(Resource):
 
 
 class ComicResourceList(Resource):
+    @jwt_required
     def delete(self, id: int):
         comic = ComicRepository.delete(id)
+        return comic
+
+    def get(self, id: int):
+        comic = ComicRepository.get(id)
         return comic
 
 

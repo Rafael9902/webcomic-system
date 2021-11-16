@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../auth/auth.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import { Router } from "@angular/router";
+import * as utils  from "../../../shared/utils";
 
 @Component({
   selector: 'app-header',
@@ -35,7 +36,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getComics(){
-
+  logout(){
+    this._router.navigate(['login']);
   }
+
+
 }

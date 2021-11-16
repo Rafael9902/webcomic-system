@@ -37,7 +37,14 @@ class UserResourceLogin(Resource):
         return authenticated
 
 
+class UserResourceLogout(Resource):
+    def post(self):
+        logout = UserRepository.logout()
+
+        return logout
+
+
 api.add_resource(UserResource, '/user', endpoint='user')
 api.add_resource(UserResourceList, '/user/<int:id>', endpoint='user_list')
 api.add_resource(UserResourceLogin, '/user/login', endpoint='user_login')
-
+api.add_resource(UserResourceLogin, '/user/logout', endpoint='user_logout')

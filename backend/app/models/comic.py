@@ -10,7 +10,7 @@ class Comic(db.Model, BaseModelMixin):
                    server_default=COMIC_ID_SEQ.next_value())
     month = db.Column(db.String(2), nullable=False)
     num = db.Column(db.String(50), unique=True, nullable=False)
-    link = db.Column(db.String(500), nullable=False)
+    link = db.Column(db.Integer(), nullable=False)
     year = db.Column(db.String(50), nullable=False)
     news = db.Column(db.String(50))
     safe_title = db.Column(db.String(100), nullable=False)

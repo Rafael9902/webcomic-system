@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import { AuthService} from "../../../auth/auth.service";
 import { Router } from '@angular/router';
 import * as utils  from "../../../shared/utils";
-import {timeout} from "rxjs";
+import {window} from "rxjs";
 
 
 @Component({
@@ -41,8 +41,10 @@ export class LoginComponent implements OnInit {
     this._authService.login(this.credentialsForm.value).subscribe(
       response =>{
         console.log(response);
-        if(response.status == 200)
+        if(response.status == 200){
           utils.saveSessionToken(response.token);
+          utils.saveLocalValue("login", "true");
+        }
         else
           this.loginMessage = response.message;
           this.register = false;
