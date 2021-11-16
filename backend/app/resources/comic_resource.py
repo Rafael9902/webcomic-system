@@ -11,7 +11,21 @@ class ComicResource(Resource):
     def post(self):
         request_json = request.get_json(silent=True)
         comic = ComicRepository.create(request_json)
-        return comic, 200
+
+        return comic
+
+    def get(self):
+        tag: str = request.args.get("tag")
+        comics = ComicRepository.filter(tag)
+
+        return comics
+
+
+class ComicResourceList(Resource):
+    def delete(self, id: int):
+        comic = ComicRepository.delete(id)
+        return comic
 
 
 api.add_resource(ComicResource, '/comic', endpoint='comic')
+api.add_resource(ComicResourceList, '/comic/<int:id>', endpoint='comic_delete')

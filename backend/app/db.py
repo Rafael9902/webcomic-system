@@ -32,5 +32,5 @@ class BaseModelMixin:
         return cls.query.filter_by(email=email).first()
 
     @classmethod
-    def simple_filter(cls, **kwargs):
-        return cls.query.filter_by(**kwargs).all()
+    def filter_by(cls, query: str):
+        return cls.query.filter(query)
