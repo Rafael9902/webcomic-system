@@ -8,7 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from '@angular/router';
 import {UserService} from "./services/user.service";
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component'
+import { ComicModule } from "../comic/comic.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ComicModule
   ],
   providers: [UserService]
 })

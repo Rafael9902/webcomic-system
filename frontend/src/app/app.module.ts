@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserModule } from "./user/user.module";
 import { AuthModule} from "./auth/auth.module";
 
@@ -17,7 +17,9 @@ import { AuthModule} from "./auth/auth.module";
     BrowserModule,
     AppRoutingModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

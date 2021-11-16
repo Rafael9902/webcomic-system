@@ -13,8 +13,8 @@ import { Router } from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
 
-  public updateMessage: string = "";
-  public user: User;
+  updateMessage: string = "";
+  user: User;
 
   userForm = new FormGroup({
     first_name: new FormControl(''),

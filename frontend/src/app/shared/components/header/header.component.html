@@ -6,12 +6,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <form [formGroup]="searchForm" *ngIf="isLogged" class="form-inline" (ngSubmit)="onSubmit()">
+      <input class="form-control mr-sm-2" formControlName="tag" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success " type="submit">Search</button>
     </form>
 
-      <ul class="navbar-nav " style="padding-right: 80px">
+      <ul *ngIf="isLogged" class="navbar-nav " style="padding-right: 80px">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="https://i.postimg.cc/jCYKQm6N/default.png" width="40" height="40" class="rounded-circle">

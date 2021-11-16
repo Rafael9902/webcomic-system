@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../../auth/auth.service";
+import {FormControl, FormGroup} from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public isLogged: boolean = false;
+
+  public searchForm = new FormGroup({
+    tag: new FormControl('')
+  });
+
+  constructor(private _authService: AuthService, private _router: Router) { }
 
   ngOnInit(): void {
+    if(this._authService.isLoggedIn())
+      this.isLogged = true;
   }
 
+  onSubmit() {
+    this.reloadCurrentRoute()
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this._router.url;
+
+    this._router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
+      this._router.navigate(['home'],{queryParams: {"tag": this.searchForm.value.tag}});
+    });
+  }
+
+  getComics(){
+
+  }
 }
