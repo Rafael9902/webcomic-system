@@ -1,6 +1,7 @@
 from ..models.comic import Comic
 import app.common.utils as utils
 from flask_jwt_extended import create_access_token
+
 from ..utilities.comic_utility import ComicUtilities
 
 
@@ -11,10 +12,10 @@ class ComicRepository:
         comic: Comic
 
         try:
-            if len(self) == 11:
+            if "id" not in self:
                 comic = ComicUtilities.saveComic(self)
                 message = "The comic was created successfully"
-            elif len(self) == 12:
+            else:
                 comic = ComicUtilities.updateComic(self)
                 message = "The comic was updated successfully"
 

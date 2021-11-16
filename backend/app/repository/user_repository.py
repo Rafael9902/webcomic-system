@@ -32,7 +32,7 @@ class UserRepository:
         print(self)
 
         try:
-            if len(self) == 4:
+            if "id" not in self:
                 validate_user: User = User.get_by_email(self['email'])
 
                 if validate_user:

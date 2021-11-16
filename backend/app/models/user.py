@@ -12,7 +12,7 @@ class User(db.Model, BaseModelMixin):
                    server_default=USER_ID_SEQ.next_value())
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
     def __init__(self, first_name: str, last_name: str, email: str, password: str):

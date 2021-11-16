@@ -1,11 +1,13 @@
-import uuid
+from sqlalchemy import Sequence
 
 from app.db import db, BaseModelMixin
-from sqlalchemy.dialects.postgresql import UUID
+
+COMIC_ID_SEQ = Sequence('user_id_seq')
 
 
 class Comic(db.Model, BaseModelMixin):
-    id = db.Column(UUID(as_uuid=True), primary_key=True, nullable=False, default=uuid.uuid4())
+    id = db.Column(db.Integer, COMIC_ID_SEQ, primary_key=True, autoincrement=True,
+                   server_default=COMIC_ID_SEQ.next_value())
     month = db.Column(db.String(2), nullable=False)
     num = db.Column(db.String(50), unique=True, nullable=False)
     link = db.Column(db.String(500), nullable=False)
