@@ -2,6 +2,8 @@ from ..models.user import User
 import app.common.utils as utils
 from flask_jwt_extended import create_access_token
 
+from ..utilities.user_utility import UserUtilities
+
 
 class UserRepository:
 
@@ -26,74 +28,35 @@ class UserRepository:
 
     def create(self):
         response: dict = {}
+        message: str = ""
+        print(self)
 
         try:
+            if len(self) == 4:
+                validate_user: User = User.get_by_email(self['email'])
 
-            validate_user: User = User.get_by_email(self['email'])
+                if validate_user:
+                    response = {
+                        "status": 400,
+                        "message": "User with that email already exists"
+                    }
+                else:
+                    user = UserUtilities.createUser(self)
+                    message = "The user was created successfully"
+            elif len(self) == 5:
+                user = UserUtilities.updateUser(self)
+                message = "The user was updated successfully"
 
-            if validate_user:
-                response = {
-                    "status": 400,
-                    "message": "User with that email already exists"
-                }
-            else:
-                password: str = str(utils.encrypt(self['password']))
-                password = password[1:].replace("'", "")
-
-                user = User(
-                    self['first_name'],
-                    self['last_name'],
-                    self['email'],
-                    password
-                )
-
-                user.save()
-
-                response = {
-                    "status": 200,
-                    "message": "The user was created successfully",
-                    "id": user.id
-                }
+            response = {
+                "status": 200,
+                "message": message,
+                "id": user.id
+            }
         except Exception as e:
-            user.rollback()
-
+            print(e)
             response = {
                 "status": 500,
                 "message": "Server error"
-            }
-
-        return response
-
-    def update(self):
-        response: dict = {}
-
-        try:
-            validate_user: User = User.get_by_email(self['email'])
-
-            if validate_user:
-                response = {
-                    "status": 400,
-                    "message": "User with that email already exists"
-                }
-            else:
-                user = User.get_by_id(self['id'])
-
-                user.first_name = self['first_name']
-                user.last_name = self['last_name']
-                user.email = self['email']
-                user.password = self['password']
-
-                user.update()
-
-                response = {
-                    "status": 200,
-                    "message": "The user was updated successfully",
-                    "id": user.id
-                }
-        except Exception as e:
-            response = {
-                "status": 400,
-                "message": "Failed to update the user"
             }
 
         return response

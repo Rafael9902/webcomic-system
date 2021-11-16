@@ -13,7 +13,7 @@ class User(db.Model, BaseModelMixin):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
     def __init__(self, first_name: str, last_name: str, email: str, password: str):
         self.first_name = first_name

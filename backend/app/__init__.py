@@ -5,6 +5,7 @@ from flask_restful import Api
 from app.common.error_handling import ObjectNotFound, AppErrorBaseClass
 from app.db import db
 from app.resources.user_resource import user_api
+from app.resources.comic_resource import comic_api
 from flask_cors import CORS
 from .ext import ma, migrate
 from flask_jwt_extended import JWTManager
@@ -25,6 +26,7 @@ def create_app(settings_module):
     Api(app, catch_all_404s=True)
     app.url_map.strict_slashes = False
     app.register_blueprint(user_api)
+    app.register_blueprint(comic_api)
 
     CORS(app)
     register_error_handlers(app)

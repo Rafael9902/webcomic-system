@@ -16,11 +16,6 @@ class UserResource(Resource):
         user = UserRepository.get(current_user_id)
         return user, 200
 
-    def put(self):
-        request_json = request.get_json(silent=True)
-        user = UserRepository.update(request_json)
-        return user, 200
-
     def post(self):
         request_json = request.get_json(silent=True)
         user = UserRepository.create(request_json)
