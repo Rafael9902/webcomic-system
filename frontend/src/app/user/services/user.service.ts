@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { User} from "../../models/user";
 import { global} from "../../shared/global";
 
 
@@ -30,7 +29,7 @@ export class UserService{
     let json = JSON.stringify(user);
     let headers = new HttpHeaders().set("Content-Type", "application/json");
 
-    return this._http.put(this.url + "user", json, {headers: headers});
+    return this._http.post(this.url + "user", json, {headers: headers});
   }
 
 }

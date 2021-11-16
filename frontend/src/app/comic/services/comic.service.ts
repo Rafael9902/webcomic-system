@@ -16,6 +16,17 @@ export class ComicService{
     return this._http.get(this.url + "comic?tag=" + tag);
   }
 
+  create(comic: any, token: string): Observable<any>{
+    let json = JSON.stringify(comic);
+
+    let headers = new HttpHeaders({
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    })
+
+    return this._http.post(this.url + "comic", json, {headers: headers});
+  }
+
 
 
 }
