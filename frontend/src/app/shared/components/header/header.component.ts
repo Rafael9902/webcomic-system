@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
+    utils.clearSessionToken();
     this._router.navigate(['login']);
   }
 
