@@ -3,6 +3,8 @@ import * as utils  from "../../../shared/utils";
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService} from "../../../auth/auth.service";
 import {ComicService} from "../../../comic/services/comic.service";
+import {UserService} from "../../services/user.service";
+import {User} from "../../../models/user";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,8 @@ export class HomeComponent implements OnInit {
   tag: string = "";
   comics: any = []
 
-  constructor(private _router: Router, private _authService: AuthService, private _route: ActivatedRoute, private  _comicService: ComicService) { }
+  constructor(private _router: Router, private _authService: AuthService, private _route: ActivatedRoute,
+              private  _comicService: ComicService, private _userService: UserService) { }
 
   ngOnInit(): void {
     if(!this._authService.isLoggedIn())
@@ -26,18 +29,22 @@ export class HomeComponent implements OnInit {
       window.location.reload();
     }
 
-
-
+    this.getUser();
     this.getParams();
     this.getComics()
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this._router.url;
+  getUser(){
+    let token = utils.getUserSession();
+    this._userService.get(token).subscribe(
+      response =>{
+        this.user = new User(response.id, response.first_name, response.last_name, response.email, response.password)
+      },
+      error =>{
+        console.error(error);
+      }
+    )
 
-    this._router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
-      this._router.navigate(['home']);
-    });
   }
 
   getParams(){
