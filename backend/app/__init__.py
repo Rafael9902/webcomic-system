@@ -33,7 +33,7 @@ def create_app(settings_module):
 
 
 def config(app):
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://rafael:9906@localhost/xkcd'
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://hisrcbfjjahwnz:70e1556eec9e757854a1626ee3fdfbced1d162c68af2bda1410040f6745b43ef@ec2-54-160-103-135.compute-1.amazonaws.com/des0bsn8389if4'
     app.config["JWT_SECRET_KEY"] = "XKCD-secret"
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
 
